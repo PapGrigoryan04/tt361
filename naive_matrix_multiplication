@@ -1,0 +1,10 @@
+def naive_matrix_multiplication(A, B):
+    n = len(A)
+    m = len(B[0])
+    p = len(B)
+    result = [[0] * m for _ in range(n)]
+    for i in range(n):
+        for j in range(m):
+            for k in range(p):
+                result[i][j] += A[i][k] * B[k][j]
+    return result

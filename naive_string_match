@@ -1,0 +1,8 @@
+def naive_string_match(text, pattern):
+    n = len(text)
+    m = len(pattern)
+    positions = []
+    for i in range(n - m + 1):
+        if text[i:i + m] == pattern:
+            positions.append(i)
+    return positions

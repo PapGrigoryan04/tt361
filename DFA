@@ -1,0 +1,31 @@
+class DFA:
+    def __init__(self, states, alphabet, transition, start, accept):
+        self.states = states
+        self.alphabet = alphabet
+        self.transition = transition
+        self.start = start
+        self.accept = accept
+
+    def run(self, s):
+        state = self.start
+        for ch in s:
+            if ch not in self.alphabet:
+                return False
+            state = self.transition[state][ch]
+        return state in self.accept
+
+
+states = {"q0", "q1"}
+alphabet = {"0", "1"}
+transition = {
+    "q0": {"0": "q0", "1": "q1"},
+    "q1": {"0": "q1", "1": "q0"}
+}
+start = "q0"
+accept = {"q0"}
+
+dfa = DFA(states, alphabet, transition, start, accept)
+
+print(dfa.run("1100"))
+print(dfa.run("111"))
+print(dfa.run("101010"))

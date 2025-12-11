@@ -1,0 +1,26 @@
+import heapq
+
+def dijkstra(graph, start):
+    dist = {v: float('inf') for v in graph}
+    dist[start] = 0
+    pq = [(0, start)]
+    while pq:
+        d, v = heapq.heappop(pq)
+        if d > dist[v]:
+            continue
+        for u, w in graph[v]:
+            nd = d + w
+            if nd < dist[u]:
+                dist[u] = nd
+                heapq.heappush(pq, (nd, u))
+    return dist
+
+graph = {
+    "A": [("B", 4), ("C", 2)],
+    "B": [("C", 5), ("D", 10)],
+    "C": [("E", 3)],
+    "D": [],
+    "E": [("D", 4)]
+}
+
+print(dijkstra(graph, "A"))

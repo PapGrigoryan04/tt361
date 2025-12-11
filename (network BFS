@@ -1,0 +1,26 @@
+from collections import deque
+
+def bfs(network, start):
+    visited = set()
+    q = deque([start])
+    order = []
+    while q:
+        v = q.popleft()
+        if v not in visited:
+            visited.add(v)
+            order.append(v)
+            for u in network[v]:
+                if u not in visited:
+                    q.append(u)
+    return order
+
+network = {
+    1: [2, 3],
+    2: [4],
+    3: [5, 6],
+    4: [],
+    5: [],
+    6: []
+}
+
+print(bfs(network, 1))

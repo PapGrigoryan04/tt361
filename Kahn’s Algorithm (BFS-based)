@@ -1,0 +1,28 @@
+from collections import deque
+
+def topo_sort(graph):
+    indeg = {v: 0 for v in graph}
+    for v in graph:
+        for u in graph[v]:
+            indeg[u] += 1
+    q = deque([v for v in graph if indeg[v] == 0])
+    order = []
+    while q:
+        v = q.popleft()
+        order.append(v)
+        for u in graph[v]:
+            indeg[u] -= 1
+            if indeg[u] == 0:
+                q.append(u)
+    return order
+
+graph = {
+    "A": ["C"],
+    "B": ["C", "D"],
+    "C": ["E"],
+    "D": ["F"],
+    "E": ["F"],
+    "F": []
+}
+
+print(topo_sort(graph))

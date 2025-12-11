@@ -1,0 +1,26 @@
+def orient(a, b, c):
+    return (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0])
+
+def dist(a, b):
+    return (a[0]-b[0])**2 + (a[1]-b[1])**2
+
+def jarvis(points):
+    if len(points) < 3:
+        return points
+    left = min(points)
+    hull = []
+    p = left
+    while True:
+        hull.append(p)
+        q = points[0]
+        for r in points[1:]:
+            o = orient(p, q, r)
+            if q == p or o < 0 or (o == 0 and dist(p, r) > dist(p, q)):
+                q = r
+        p = q
+        if p == left:
+            break
+    return hull
+
+pts = [(1,1),(2,5),(3,3),(5,3),(3,2),(2,2),(4,1)]
+print(jarvis(pts))

@@ -1,0 +1,19 @@
+def dfs(graph, start, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(start)
+    for v in graph[start]:
+        if v not in visited:
+            dfs(graph, v, visited)
+    return visited
+
+graph = {
+    "A": ["B", "C"],
+    "B": ["D", "E"],
+    "C": ["F"],
+    "D": [],
+    "E": ["F"],
+    "F": []
+}
+
+print(dfs(graph, "A"))

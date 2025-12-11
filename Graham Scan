@@ -1,0 +1,18 @@
+def orient(a, b, c):
+    return (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0])
+
+def dist(a, b):
+    return (a[0]-b[0])**2 + (a[1]-b[1])**2
+
+def graham_scan(points):
+    p0 = min(points, key=lambda p: (p[1], p[0]))
+    pts = sorted(points, key=lambda p: (-(p[1]-p0[1])/(abs(p[0]-p0[0]) if p[0]!=p0[0] else 1e-9), dist(p0, p)))
+    stack = []
+    for p in pts:
+        while len(stack) >= 2 and orient(stack[-2], stack[-1], p) <= 0:
+            stack.pop()
+        stack.append(p)
+    return stack
+
+pts = [(1,1),(2,5),(3,3),(5,3),(3,2),(2,2),(4,1)]
+print(graham_scan(pts))

@@ -1,0 +1,25 @@
+def floyd_warshall(graph):
+    vertices = list(graph.keys())
+    dist = {u: {v: float('inf') for v in vertices} for u in vertices}
+    for u in vertices:
+        dist[u][u] = 0
+        for v, w in graph[u]:
+            dist[u][v] = w
+    for k in vertices:
+        for i in vertices:
+            for j in vertices:
+                if dist[i][k] + dist[k][j] < dist[i][j]:
+                    dist[i][j] = dist[i][k] + dist[k][j]
+    return dist
+
+graph = {
+    "A": [("B", 3), ("C", 8), ("E", -4)],
+    "B": [("D", 1), ("E", 7)],
+    "C": [("B", 4)],
+    "D": [("A", 2), ("C", -5)],
+    "E": [("D", 6)]
+}
+
+distances = floyd_warshall(graph)
+for u in distances:
+    print(u, distances[u])
